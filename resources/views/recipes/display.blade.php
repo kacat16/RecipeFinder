@@ -6,15 +6,24 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ $recipe['title'] }}</title>
     <link href="https://fonts.googleapis.com/css2?family=Homemade+Apple&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link href="{{asset('dist/css/tabler.min.css?1674944402')}}" rel="stylesheet"/>
-    <link href="{{asset('dist/css/tabler-flags.min.css?1674944402')}}" rel="stylesheet"/>
-    <link href="{{asset('dist/css/tabler-payments.min.css?1674944402')}}" rel="stylesheet"/>
-    <link href="{{asset('dist/css/tabler-vendors.min.css?1674944402')}}" rel="stylesheet"/>
-    <link href="{{asset('dist/css/demo.min.css?1674944402')}}" rel="stylesheet"/>
+    
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    
     <style>
+        .container{
+            align-items: center;
+            display: flex;
+            flex-direction: column; /* Ensures vertical layout */
+            justify-content: flex-start; 
+        }
+        #navig {
+            background-color: #F5AF41;
+            color: #fff3e0;
+            
+        }
+
         html, body {
         font-family: 'Roboto', sans-serif;
         background: #fff3e0;
@@ -23,8 +32,8 @@
         padding: 0;
         display: flex;
         flex-direction: column; /* Ensures vertical layout */
-        justify-content: flex-start; /* Aligns content to the top */
-        align-items: center; /* Centers content horizontally */
+        justify-content: flex-start; 
+         
         background-image: url('https://www.transparenttextures.com/patterns/lined-paper.png');
         }
         .navbar {
@@ -36,6 +45,7 @@
             background-color: #F5AF41;
         }
         .recipe-card {
+            align-items: center;
             width: 80%;
             max-width: 600px;
             background: #ffffffe0;
@@ -107,13 +117,17 @@
             margin-right: 10px; /* Space between links */
         }
 
-
+        .linka {
+            color: #fff3e0;
+            font-family: 'Poppins'
+        }
     </style>
+    
 </head>
 
 <body>
     <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav id="navig" class="navbar navbar-expand-lg">
         <a class="navbar-brand" href="/">
             <img src="/images/logorf.png" width="30" height="30" alt="Logo">
         </a>
@@ -123,15 +137,15 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
                 <li class="nav-item active">
-                    <a class="nav-link" href="/recipe_search">Search Recipes</a>
+                    <a class="nav-link linka" href="/recipe_search">Search Recipes</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/recipes/favourites">Favourites</a>
+                    <a class="nav-link linka" href="/recipes/favourites">Favourites</a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle linka" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         {{ Auth::user()->name }}
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
@@ -148,6 +162,7 @@
             </ul>
         </div>
     </nav>
+    <div class ="container">
     <div class="recipe-card">
         <img src="{{ $recipe['image'] }}" alt="Image of {{ $recipe['title'] }}" class="recipe-image">
         <div class="headrecipe"><h1 class="recipe-title">{{ $recipe['title'] }}      </h1> <button type="button" class="btn btn-pill butsl" onclick="save()"><img id="slikasave" src="/images/save_positive.jpg"></button></div>
@@ -166,6 +181,7 @@
             <h2>Instructions</h2>
             {!!$recipe['instructions']!!}
         </div>
+    </div>
     </div>
 </body>
 </html>

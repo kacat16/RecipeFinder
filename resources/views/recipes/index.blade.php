@@ -3,11 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Homemade+Apple&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
     <style>
         html, body {
             font-family: 'Open Sans', arial, sans-serif;
-            color: #333;
-            font-size: 14px;
+            
             height: 100%;  /* Full height of the viewport */
             margin: 0;
             padding: 0;
@@ -15,10 +19,68 @@
             background-size: cover;
             overflow: auto; /* Ensures no scrollbars interfere */
         }
+        .navbar-brand img {
+            max-height: 40px; /* Logo size */
+        }
+
+        .nav-link {
+            margin-right: 10px; /* Space between links */
+        }
+        
+        .navbar {
+            width: 100%;
+            margin: 0;
+            position: relative; /* Ensures it is not affected by other elements */
+            left: 0; /* Aligns to the far left */
+            right: 0;
+            background-color: #F5AF41;
+        }
+
+        .linka {
+            color: #fff3e0;
+            font-family: 'Poppins'
+
+        }
     </style>
     <title>Recipe Search Results</title>
 </head>
 <body>
+<!-- Navigation Bar -->
+<nav id="navig" class="navbar navbar-expand-lg">
+        <a class="navbar-brand" href="/">
+            <img src="/images/logorf.png" width="30" height="30" alt="Logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link linka" href="/recipe_search">Search Recipes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link linka" href="/recipes/favourites">Favourites</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle linka" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{ Auth::user()->name }}
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="{{ route('logout') }}"
+                           onclick="event.preventDefault();
+                                     document.getElementById('logout-form').submit();">
+                            Logout
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
 <div class="projcard-container">
     <h1>Recipes</h1>
     @foreach ($recipes as $recipe)
@@ -26,7 +88,7 @@
         <div class="projcard-innerbox">
             <img src="{{ $recipe['regularInfo']['image'] }}" alt="Image of {{ $recipe['regularInfo']['title'] }}" class="projcard-img" />
             <div class="projcard-textbox">
-            <div class="projcard-title"><a href="{{route('recipes.display',$recipe['regularInfo']['id'])}}">{{ $recipe['regularInfo']['title'] }}</a></div>
+            <div class="projcard-title"><a class="linka" href="{{route('recipes.display',$recipe['regularInfo']['id'])}}">{{ $recipe['regularInfo']['title'] }}</a></div>
             <div class="projcard-bar"></div>
             <div class="projcard-description">
             @if(!empty($recipe['furtherInfo']['summary']))
@@ -51,8 +113,6 @@
 .projcard-container {
   margin: 50px 0;
 }
-
-/* Actual Code: */
 .projcard-container,
 .projcard-container * {
   box-sizing: border-box;
@@ -66,12 +126,15 @@
   position: relative;
   width: 100%;
   height: 300px;
+  background: rgba(0,0,0,0.5);
   margin-bottom: 40px;
   border-radius: 10px;
-  background-color: #fff;
   border: 2px solid #ddd;
   font-size: 18px;
   overflow: hidden;
+  
+  font-family: 'Poppins';
+  color: #ffffff;
   cursor: pointer;
   box-shadow: 0 4px 21px -12px rgba(0, 0, 0, .66);
   transition: box-shadow 0.2s ease, transform 0.2s ease;
@@ -99,8 +162,14 @@
   right: 0;
   bottom: 0;
   left: 0;
+  
+  font-family: 'Poppins';
+  color: #ffffff;
+  
+  background: transparent;
 }
 .projcard-img {
+background: transparent;
   position: absolute;
   height: 300px;
   width: 400px;
@@ -110,6 +179,7 @@
 }
 .projcard:nth-child(2n) .projcard-img {
   left: initial;
+  background: transparent;
   right: 0;
 }
 .projcard:hover .projcard-img {
@@ -119,24 +189,26 @@
   width: 70px;
 }
 .projcard-textbox {
+    
+  color: #ffffff;
   position: absolute;
   top: 7%;
+  font-family: 'Poppins';
   bottom: 7%;
-  left: 430px;
+  left: 410px;
   width: calc(100% - 470px);
   font-size: 17px;
 }
 .projcard:nth-child(2n) .projcard-textbox {
   left: initial;
-  right: 430px;
+  right: 410px;
 }
 .projcard-textbox::before,
 .projcard-textbox::after {
   content: "";
   position: absolute;
   display: block;
-  background: #ff0000bb;
-  background: #fff;
+  background: transparent;
   top: -20%;
   left: -55px;
   height: 140%;
@@ -201,13 +273,15 @@
 .projcard-description {
   z-index: 10;
   font-size: 15px;
-  color: #424242;
+  
+  font-family: 'Poppins';
+  color: #ffffff;
   height: 125px;
   overflow: hidden;
-  text-overflow: ellipsis;
-  max-height: 125px;  // Adjust based on your layout needs
-  overflow-y: auto;  // Enables vertical scrolling when the text overflows
-  margin: 10px 0;    // Adds some space around the text, adjust as necessary
+  
+  max-height: 125px;  
+  overflow: auto; 
+  margin: 10px 0;    
   padding-right: 15px;
   pointer-events: auto;
   width: 100%;
@@ -226,8 +300,8 @@
 }
 .projcard-tag {
   display: inline-block;
-  background: #E0E0E0;
-  color: #777;
+  background: #F5AF41;
+  color: #fff3e0;
   border-radius: 3px 0 0 3px;
   line-height: 26px;
   padding: 0 10px 0 23px;
@@ -252,7 +326,7 @@
   content: '';
   position: absolute;
   border-bottom: 13px solid transparent;
-  border-left: 10px solid #E0E0E0;
+  border-left: 10px solid #F5AF41;
   border-top: 13px solid transparent;
   right: -10px;
   top: 0;

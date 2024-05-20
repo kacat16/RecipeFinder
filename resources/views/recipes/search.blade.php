@@ -1,40 +1,8 @@
-
-<div>
-<a href="/dashboard"><img src="/images/logorf.png" class="slika"></a>
-</div>
-<div class="search-wrapper">
-
-    <div class="input-holder">
-        <input id="searchInput" type="text" class="search-input" placeholder="Type to search" />
-        <button class="search-icon" onclick="searchToggle(this, event);"><span></span></button>
-    </div>
-    <span class="close" onclick="searchToggle(this, event);"></span>
-</div>
-</body>
-</html>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-<script>
-    function searchToggle(obj, evt){
-    var container = $(obj).closest('.search-wrapper');
-        if(!container.hasClass('active')){
-            container.addClass('active');
-            evt.preventDefault();
-        }
-        else if(container.hasClass('active') && $(obj).closest('.input-holder').length == 0){
-            container.removeClass('active');
-            // clear input
-            container.find('.search-input').val('');
-        }
-        else {
-            var input = $('#searchInput').val();
-            window.location.href = '/recipes/search?query=' + encodeURIComponent(input);
-        }
-    }
-</script>
-
-<style>
-body {
+@extends('layouts.navigation')
+@section('title', 'Search')
+@section('content')
+    <style>
+        body {
    background-image: url("/images/kitchen.jpg");
    background-size: cover;
 }
@@ -88,7 +56,6 @@ body {
     font-size: 16px;
     font-weight: 400;
     line-height: 20px;
-    
     transform: translate(0, 60px);
     transition: all .3s cubic-bezier(0.000, 0.105, 0.035, 1.570);
     transition-delay: 0.3s;
@@ -188,4 +155,64 @@ body {
     left: 0px;
     top: 10px;
 }
+
+    .navbar-brand img {
+            max-height: 40px; /* Logo size */
+        }
+
+        .nav-link {
+            margin-right: 10px; /* Space between links */
+        }
+        
+        .navbar {
+            width: 100%;
+            margin: 0;
+            position: relative; /* Ensures it is not affected by other elements */
+            left: 0; /* Aligns to the far left */
+            right: 0;
+            background-color: #F5AF41;
+        }
+
+        .linka {
+            color: #fff3e0;
+            font-family: 'Poppins'
+
+        }
+
+
 </style>
+
+<div>
+<a href="/dashboard"><img src="/images/logorf.png" class="slika"></a>
+</div>
+<div class="search-wrapper">
+
+    <div class="input-holder">
+        <input id="searchInput" type="text" class="search-input" placeholder="Type to search" />
+        <button class="search-icon" onclick="searchToggle(this, event);"><span></span></button>
+    </div>
+    <span class="close" onclick="searchToggle(this, event);"></span>
+</div>
+</body>
+</html>
+
+<script>
+    function searchToggle(obj, evt){
+    var container = $(obj).closest('.search-wrapper');
+        if(!container.hasClass('active')){
+            container.addClass('active');
+            evt.preventDefault();
+        }
+        else if(container.hasClass('active') && $(obj).closest('.input-holder').length == 0){
+            container.removeClass('active');
+            // clear input
+            container.find('.search-input').val('');
+        }
+        else {
+            var input = $('#searchInput').val();
+            window.location.href = '/recipes/search?query=' + encodeURIComponent(input);
+        }
+    }
+</script>
+
+@endsection
