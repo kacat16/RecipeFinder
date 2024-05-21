@@ -3,12 +3,18 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RecipeController;
+use Illuminate\Support\Facades\DB;
+
 Route::get('/', function () {
     return view('auth.login');
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    $favourites = DB::table('favourites')
+    ->selectRaw('recipes.id as id, recipes.name as name, recipes.image as image')
+    ->join('recipes','recipes.id','=','favourites.id_recipes')
+    ->get();
+    return view('dashboard',['favourites'=>$favourites]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {

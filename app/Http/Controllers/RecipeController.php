@@ -29,7 +29,8 @@ class RecipeController extends Controller
             array_push($recipes,$r);
         }
         session(['recipesLast' => $recipes]);
-        return view('recipes.index', ['recipes' => $recipes]);
+        $title = "Your favourite recipes";
+        return view('recipes.index', ['recipes' => $recipes, 'title'=>$title]);
 
     }
 
@@ -97,7 +98,8 @@ class RecipeController extends Controller
             array_push($recipes,$recipe);
         }
         session(['recipesLast' => $recipes]);
-        return view('recipes.index', ['recipes' => $recipes]);
+        $title = "Recipes";
+        return view('recipes.index', ['recipes' => $recipes, 'title'=>$title]);
     }
     public function display($id) {
 
@@ -112,7 +114,7 @@ class RecipeController extends Controller
             }
         }
         $recipe_from_base = DB::table('recipes')
-        ->selectRaw('recipes.id as id')
+        ->selectRaw('recipes.id as id, recipes.name as title, recipes.image as image, recipes.summary as summary, recipes.ingredients as ingredients, recipes.instructions as instructions')
         ->where('recipes.id',$id)
         ->get();
         $i = count($recipe_from_base);
@@ -128,6 +130,9 @@ class RecipeController extends Controller
             if (count($favs)){
                 $imaUBaziFavorit=true;
             }
+        }
+        if (empty($result)) {
+            $result = ['image'=>$recipe_from_base[0]->image, 'summary'=>$recipe_from_base[0]->summary, 'title'=>$recipe_from_base[0]->title, 'extendedIngredients'=>json_decode($recipe_from_base[0]->ingredients,true),'instructions'=>json_decode($recipe_from_base[0]->instructions)];
         }
 
         return view('recipes.display', ['recipe' => $result, 'recipeId'=>$id, 'ima_recept'=>$imaUBaziRecept, 'ima_favorit'=>$imaUBaziFavorit]);
