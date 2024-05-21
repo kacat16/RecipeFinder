@@ -25,6 +25,7 @@
             left: 0; /* Aligns to the far left */
             right: 0;
             background-color: #F5AF41;
+            box-shadow: 0 4px 21px -12px rgba(0, 0, 0, .66);
         }
 
         .linka {
@@ -36,7 +37,7 @@
 </head>
 <body>
 <nav id="navig" class="navbar navbar-expand-lg">
-        <a class="navbar-brand" href="/">
+        <a class="navbar-brand" href="/dashboard">
             <img src="/images/logorf.png" width="30" height="30" alt="Logo">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">

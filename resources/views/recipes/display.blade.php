@@ -39,10 +39,11 @@
         .navbar {
             width: 100%;
             margin: 0;
-            position: relative; /* Ensures it is not affected by other elements */
-            left: 0; /* Aligns to the far left */
+            position: relative; 
+            left: 0; 
             right: 0;
             background-color: #F5AF41;
+            box-shadow: 0 4px 21px -12px rgba(0, 0, 0, .66);
         }
         .recipe-card {
             align-items: center;
@@ -128,7 +129,7 @@
 <body>
     <!-- Navigation Bar -->
     <nav id="navig" class="navbar navbar-expand-lg">
-        <a class="navbar-brand" href="/">
+        <a class="navbar-brand" href="/dashboard">
             <img src="/images/logorf.png" width="30" height="30" alt="Logo">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -273,6 +274,7 @@ function save() {
                 console.error('Error:', error);
             });
         }
+        alert("You successfully saved this recipe!");
     }
 }
 
