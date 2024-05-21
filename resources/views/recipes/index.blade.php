@@ -47,7 +47,7 @@
 <body>
 <!-- Navigation Bar -->
 <nav id="navig" class="navbar navbar-expand-lg">
-        <a class="navbar-brand" href="/">
+        <a class="navbar-brand" href="/dashboard">
             <img src="/images/logorf.png" width="30" height="30" alt="Logo">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -82,7 +82,8 @@
         </div>
     </nav>
 <div class="projcard-container">
-    <h1>Recipes</h1>
+    <h1>{{$title}}</h1>
+    @if(!empty($recipes))
     @foreach ($recipes as $recipe)
         <div class="projcard projcard-customcolor" style="--projcard-color: #F5AF41;">
         <div class="projcard-innerbox">
@@ -106,12 +107,21 @@
         </div>
         </div>
     @endforeach
+    @elseif($title=='Recipes')
+    
+    <h3>There are no results for your search.</h3>
+
+    @else 
+    <h3>You don't have any favourite recipe yet.</h3>
+    @endif
 </div>
 </body>
 </html>
 <style>
 .projcard-container {
   margin: 50px 0;
+  font-family: 'Poppins'
+
 }
 .projcard-container,
 .projcard-container * {
